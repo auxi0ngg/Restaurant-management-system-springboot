@@ -1,154 +1,363 @@
-# Spring Restaurant API
+# 🍽️ Restaurant Management System API
 
-## 📚 About this Repository 
+![Java](https://img.shields.io/badge/Java-21-orange)
+![Spring Boot](https://img.shields.io/badge/Spring_Boot-3.5.4-brightgreen)
+![Spring Security](https://img.shields.io/badge/Spring_Security-6.5.2-green)
+![MySQL](https://img.shields.io/badge/MySQL-8.0-blue)
+![Docker](https://img.shields.io/badge/Docker-29-blue)
+![JWT](https://img.shields.io/badge/JWT-Authentication-red)
+![License](https://img.shields.io/badge/License-MIT-yellow)
 
-This repository contains an API, created with Spring, for an all-in-one management system for a local restaurant.
+A production-inspired **Restaurant Management REST API** built using **Spring Boot**, designed to streamline restaurant operations through secure authentication, role-based authorization, customer and staff management, reservations, ordering, event management, and business analytics.
 
-The system is comprised of multiple features that are common to retail and food outlets.
+---
 
-## Technologies Used
+# 🚀 Technology Stack
 
-- Spring Boot 3
-- Spring Security 6
-- JWT Token Authentication
-- Spring Data JPA
-- Swagger UI Documentation
-- Docker
-- GitHub Actions
+| Technology | Version |
+|------------|---------|
+| Java | 21 |
+| Spring Boot | 3.5.4 |
+| Spring Security | 6.5.2 |
+| JWT Authentication | JJWT 0.12.x |
+| Spring Data JPA | 3.5.4 |
+| Hibernate ORM | Managed by Spring Boot |
+| Flyway | Database Migration |
+| MySQL | 8.0 |
+| Swagger UI (OpenAPI) | 2.8.9 |
+| Docker & Docker Compose | 29.x |
+| Maven | Latest |
 
+---
 
-## 📋 Features
+# 📖 Project Overview
 
-- **Authentication Functionality**
-    - Supports both **customers** and **staff** registration and login with JWTs.
+The Restaurant Management System API provides a secure backend solution for managing restaurant operations.
 
-- **Customer Profiles**
-    - Name and address
-    - Order history
-    - Events attended
+It supports multiple user roles including customers, waiters, chefs, managers, and delivery drivers while offering features such as:
 
-- **Staff Profiles**
-    - Name
-    - Shifts
-    - Total hours worked
+- Secure JWT Authentication
+- Role-Based Access Control
+- Customer & Staff Management
+- Table Reservations
+- Food Ordering
+- Event Booking
+- Restaurant Analytics
+- Dockerized Deployment
+- Automatic Database Migration with Flyway
 
-- **Customer Functionality**
-    - Check table availability and book tables for a given date
-    - View menu information
-    - Create orders:
-        - In-house
-        - Takeaway
-        - Delivery
-    - Book and register for catered events
+---
 
-- **Staff Roles and Tasks**
-    - Staff divided into:
-        - Waiters
-        - Managers
-        - Chefs
-        - Delivery drivers
-    - Role-based task handling:
-        - Manage table bookings
-        - Manage event bookings
-        - Accept customer orders
-        - Mark orders as complete
-        - Add special items to the menu
-        
+# 🏗️ System Architecture
 
-- **Manager-Specific Features**
-    - Generate information for the past 7 days on:
-        - The top 5 busiest periods for bookings
-        - The top 5 most popular menu items
-        - The top 5 members of staff by hours worked
-        - The top 5 most active customers
-    - Assign shifts to staff members
+```mermaid
+flowchart TB
 
-## 🛠️ Setup
+    Client["👨‍💻 Client Applications<br/>Browser / Postman / Mobile"]
 
-### Clone the Repository
+    Swagger["📘 Swagger UI"]
 
-```bash
-git clone https://github.com/ifanmo/spring-boot-restaurant
-cd restaurant-api
-```
+    API["🌐 Spring Boot REST API"]
 
-## ▶️ Running the Project
+    Security["🔐 Spring Security<br/>JWT Authentication"]
 
-To start the application, run:
+    Controllers["🎯 REST Controllers"]
 
-```bash
-docker-compose up --build
-```
+    Services["⚙️ Service Layer"]
 
-## 📚 API Documentation
+    Repository["🗄️ Spring Data JPA"]
 
-Swagger UI is available at:
+    Flyway["🛠️ Flyway"]
 
-```bash
-http://localhost:8080/swagger-ui.html
+    Database["🐬 MySQL"]
+
+    Docker["🐳 Docker Compose"]
+
+    Client --> Swagger
+    Client --> API
+
+    Swagger --> API
+
+    API --> Security
+    Security --> Controllers
+    Controllers --> Services
+    Services --> Repository
+    Repository --> Database
+
+    Flyway --> Database
+
+    Docker --> API
+    Docker --> Database
 ```
 
 ---
-In order to test the API endpoint you must first register an account with a role of either
-'CUSTOMER', 'MANAGER', 'WAITER', 'CHEF', or 'DELIVERY DRIVER'.
 
-Customers must then create a customer profile, all other roles must create a staff profile.
+# ✨ Features
 
+## 🔐 Authentication & Authorization
 
-The database is automatically populated with 10 sample menu items using a Flyway migration script.
+- JWT-based Authentication
+- Secure Login & Registration
+- Password Encryption
+- Role-Based Access Control (RBAC)
 
-## 🧪 Example Customer Registration and Login
+Supported Roles:
 
-### 1. Register a New Customer
-To check out, you have to register as a customer and login:
+- CUSTOMER
+- WAITER
+- CHEF
+- MANAGER
+- DELIVERY_DRIVER
 
-```bash
-POST /users
+---
+
+## 👤 Customer Management
+
+Customers can:
+
+- Register and Login
+- Create Customer Profiles
+- View Order History
+- View Event History
+- Browse Menu
+- Book Restaurant Tables
+- Place Orders
+- Register for Events
+
+---
+
+## 👨‍🍳 Staff Management
+
+Staff members can:
+
+- Register and Login
+- Create Staff Profiles
+- View Assigned Shifts
+- Track Hours Worked
+
+Staff Roles:
+
+- Waiter
+- Chef
+- Manager
+- Delivery Driver
+
+---
+
+## 🍽️ Restaurant Operations
+
+### Table Reservations
+
+- Check Table Availability
+- Book Tables for Specific Dates & Time Slots
+
+---
+
+### Food Ordering
+
+Supports:
+
+- Dine-In
+- Takeaway
+- Delivery
+
+Staff can:
+
+- Accept Orders
+- Process Orders
+- Complete Orders
+
+---
+
+### Menu Management
+
+Staff can:
+
+- View Menu
+- Add Special Menu Items
+
+---
+
+### Event Management
+
+Customers can:
+
+- Register for Events
+
+Staff can:
+
+- Manage Event Bookings
+
+---
+
+## 📊 Manager Dashboard
+
+Managers can:
+
+- Assign Staff Shifts
+- View Top 5 Busiest Booking Periods
+- View Top 5 Menu Items
+- View Top 5 Staff by Hours Worked
+- View Top 5 Active Customers
+
+---
+
+# 🗄️ Database
+
+The application uses:
+
+- MySQL 8
+- Spring Data JPA
+- Hibernate ORM
+- Flyway Database Migration
+
+During startup Flyway automatically:
+
+- Creates the database schema
+- Executes all migration scripts
+- Seeds the database with sample menu items
+
+No manual SQL setup is required.
+
+---
+
+# 📂 Project Structure
+
+```
+src
+├── controllers
+├── services
+├── repositories
+├── entities
+├── dto
+├── security
+├── config
+├── exception
+├── mappers
+└── resources
+    ├── db
+    │   └── migration
+    └── application.yaml
 ```
 
-**Request body**:
+---
+
+# 🐳 Running the Project
+
+## Clone Repository
+
+```bash
+git clone https://github.com/auxi0ngg/Restaurant-management-system-springboot.git
+
+cd Restaurant-management-system-springboot
+```
+
+---
+
+## Start using Docker
+
+```bash
+docker compose up --build
+```
+
+Docker automatically:
+
+- Builds the application
+- Starts MySQL
+- Executes Flyway Migrations
+- Starts the Spring Boot application
+
+---
+
+# 📚 API Documentation
+
+Swagger UI:
+
+```
+http://localhost:8080/swagger-ui.html
+```
+
+Use Swagger UI to explore and test every API endpoint.
+
+---
+
+# 🔑 Authentication Flow
+
+Before accessing secured endpoints:
+
+1. Register a User
+2. Login
+3. Receive JWT Token
+4. Create Customer or Staff Profile
+5. Use JWT in Authorization Header
+
+```
+Authorization: Bearer <your-jwt-token>
+```
+
+---
+
+# 👤 Customer Example
+
+## Register
+
+**POST**
+
+```
+/users
+```
 
 ```json
 {
-  "email": "user1@example.com",
+  "email": "customer@example.com",
   "password": "password",
   "role": "CUSTOMER"
 }
 ```
 
-### 2. Login to Get an Access Token
+---
 
-```bash
-POST /auth/login 
+## Login
+
+**POST**
+
+```
+/auth/login
 ```
 
-**Request body**:
 ```json
 {
-  "email": "user1@example.com",
+  "email": "customer@example.com",
   "password": "password"
 }
 ```
 
-**Response body**:
+Response
+
 ```json
 {
   "token": "generated-json-web-token"
 }
 ```
 
-### 3. Create Customer Profile
-You must create a customer profile before checking out the order
-```bash
-POST /customers 
+---
+
+## Create Customer Profile
+
+**POST**
+
+```
+/customers
 ```
 
-**Headers**
-```bash
-Authorization: Bearer generated-json-web-token
+Headers
+
+```
+Authorization: Bearer <JWT_TOKEN>
 ```
 
-**Request body**
+Body
+
 ```json
 {
   "firstName": "Dave",
@@ -159,61 +368,116 @@ Authorization: Bearer generated-json-web-token
 }
 ```
 
-## 🧪 Example Staff Registration and Login
+---
 
-### 1. Register a New Staff Member
-To check out, you have to register as a customer and login:
+# 👨‍🍳 Staff Example
 
-```bash
-POST /users
+## Register
+
+**POST**
+
 ```
-
-**Request body**:
+/users
+```
 
 ```json
 {
-  "email": "user1@example.com",
+  "email": "staff@example.com",
   "password": "password",
   "role": "WAITER"
 }
 ```
 
-### 2. Login to Get an Access Token
+---
 
-```bash
-POST /auth/login 
+## Login
+
+**POST**
+
+```
+/auth/login
 ```
 
-**Request body**:
 ```json
 {
-  "email": "user2@example.com",
+  "email": "staff@example.com",
   "password": "password"
 }
 ```
 
-**Response body**:
+Response
+
 ```json
 {
   "token": "generated-json-web-token"
 }
 ```
 
-### 3. Create Staff Profile
-You must create a customer profile before checking out the order
-```bash
-POST /staff 
+---
+
+## Create Staff Profile
+
+**POST**
+
+```
+/staff
 ```
 
-**Headers**
-```bash
-Authorization: Bearer generated-json-web-token
+Headers
+
+```
+Authorization: Bearer <JWT_TOKEN>
 ```
 
-**Request body**
+Body
+
 ```json
 {
   "firstName": "Jay",
   "lastName": "Buckley"
 }
 ```
+
+---
+
+# 🔒 Security
+
+The API is secured using **Spring Security** and **JWT Authentication**.
+
+Protected endpoints require:
+
+```
+Authorization: Bearer <JWT_TOKEN>
+```
+
+Passwords are securely encrypted before storage.
+
+---
+
+# 📈 Future Improvements
+
+Potential enhancements include:
+
+- Email Notifications
+- Payment Gateway Integration
+- Inventory Management
+- Redis Caching
+- Kafka Event Streaming
+- Kubernetes Deployment
+- CI/CD with GitHub Actions
+- Unit & Integration Test Coverage
+
+---
+
+# 👨‍💻 Author
+
+**Arnav Garg**
+
+- GitHub: https://github.com/auxi0ngg
+- LinkedIn: https://www.linkedin.com/in/arnavgarg2003/
+
+---
+
+# ⭐ Support
+
+If you found this project helpful, consider giving it a ⭐ on GitHub.
