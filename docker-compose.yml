@@ -1,0 +1,36 @@
+services:
+  mysql:
+    container_name: mysql-restaurant
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: goodmorning
+      MYSQL_DATABASE: restaurant_api
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-pgoodmorning" ]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+  restaurant-api:
+    container_name: restaurant-api
+    build: .
+    image: restaurant/restaurant:1.0.0
+    ports:
+      - "8080:8080"
+    environment:
+      - JWT_SECRET=${JWT_SECRET}
+      - DB_URL=jdbc:mysql://mysql-restaurant:3306/restaurant_api
+      - ACTIVE_PROFILE=dev
+      - JAR_VERSION=1.0.0
+    depends_on:
+      mysql:
+        condition: service_healthy
+volumes:
+  mysql-data:
+
+
+

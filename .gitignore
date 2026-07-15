@@ -1,0 +1,28 @@
+# Maven
+target/
+
+# IntelliJ
+.idea/
+*.iml
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment
+.env
+
+# Maven wrapper cache
+.mvn/wrapper/maven-wrapper.jar
+
+# Docker
+docker-data/
+
+# Generated files
+*.class
